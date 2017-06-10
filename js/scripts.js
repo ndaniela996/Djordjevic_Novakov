@@ -1,5 +1,6 @@
 $(document).ready(function()
 {
+    // FOR LOGIN
     $('#login_form').submit(function(e)
     {
         if(Validation())
@@ -14,7 +15,7 @@ $(document).ready(function()
                     type: 'POST',
                     url: 'login.php',
                     success: LoginSuccess,
-                    error: LoginError,
+                    error: Error,
                     data: "user="+user+"&pass="+pass,
                     cache: false,
                     dataType: 'html'
@@ -44,8 +45,23 @@ $(document).ready(function()
             $('#password_help').html('');
         }
     });
+
+    //FOR LOGOUT
+    $('#logout').click(function()
+    {
+        $.ajax(
+            {
+                type: 'POST',
+                url: 'logout.php',
+                success: LogoutSuccess,
+                error: Error,
+                dataType: 'html'
+            }
+        );
+    });
 });
 
+// FOR LOGIN
 /**
  * @return {boolean}
  */
@@ -72,9 +88,9 @@ function Validation()
 
 function LoginSuccess(data,status,xhr)
 {
-    if(data='LOGGED IN')
+    if(data=='')
     {
-        window.location.replace('');
+        window.location.reload();
     }
     else
     {
@@ -83,8 +99,14 @@ function LoginSuccess(data,status,xhr)
     }
 }
 
-function LoginError(xhr,status,error)
+function Error(xhr,status,error)
 {
-    $('#error_text').html('And error occurred while attempting to log in! Please try again.');
+    $('#error_text').html('And error occurred! Please try again.');
     $('#error').modal('show');
+}
+
+// FOR LOGOUT
+function LogoutSuccess(data,status,xhr)
+{
+    window.location.reload();
 }

@@ -15,23 +15,26 @@
 
     if (mysqli_num_rows($result)>0)
     {
+        $username='';
+        $admin='';
+
         while($r=mysqli_fetch_array($result))
         {
-            $user=$r['username'];
+            $username=$r['username'];
             $admin=$r['admin'];
         }
+
         $_SESSION['logged_in'] = true;
-        $_SESSION['username'] = $user;
+        $_SESSION['username'] = $username;
 
         if($admin)
         {
             $_SESSION['admin'] = true;
         }
-
-        echo 'LOGGED IN';
     }
     else
     {
         echo "There is no user with that name and/or password. Please try again.";
-        die();
     }
+
+    mysqli_close($connection);
