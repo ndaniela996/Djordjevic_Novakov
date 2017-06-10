@@ -48,7 +48,7 @@
                     {
                 ?>
                     <li id="reg">
-                        <a href="register.php">
+                        <a href="" data-toggle="modal" data-target="#register">
                             <span class="glyphicon glyphicon-user"></span> Sign Up
                         </a>
                     </li>
@@ -112,7 +112,7 @@
 
 <!-- LOGIN FORM -->
 <div id="log_in" class="modal fade" role="dialog">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-sm">
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title">Login</h4>
@@ -129,7 +129,7 @@
                     <input type="password" class="form-control" id="password" placeholder="Password" aria-describedby="password_help">
                     <span id="password_help" class="help-block"></span>
                 </div>
-                <p>Dont's have an account? <a href="register.php">Sign up!</a></p>
+                <p>Dont's have an account? <a href="" data-dismiss="modal" data-toggle="modal" data-target="#register">Sign up!</a></p>
             </div>
             <div class="modal-footer">
                 <input type="submit" id="submit_login" class="btn btn-primary" value="Log In">
@@ -158,29 +158,49 @@
 </div>
 
 <!-- REGISTRATION -->
-
-<div id="log_in" class="modal fade" role="dialog">
-    <div class="modal-dialog">
+<div id="register" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-sm">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">Login</h4>
+                <div class="modal-title"><h4>Register</h4></div>
             </div>
-            <form id="login_form">
+            <form id="register-form">
                 <div class="modal-body">
-                    <div class="form-group" id="username_div">
-                        <label for="username">Username</label>
-                        <input type="text" class="form-control" id="username" placeholder="Username" aria-describedby="username_help">
-                        <span id="username_help" class="help-block"></span>
-                    </div>
-                    <div class="form-group" id="password_div">
-                        <label for="password">Password</label>
-                        <input type="password" class="form-control" id="password" placeholder="Password" aria-describedby="password_help">
-                        <span id="password_help" class="help-block"></span>
-                    </div>
-                    <p>Dont's have an account? <a href="register.php">Sign up!</a></p>
+                    <label for="username_register">Username</label>
+                    <input type="text" class="form-control" id="username_register"
+                           placeholder="Username" aria-describedby="username_register_help">
+                    <span id="username_register_help" class="help-block"></span>
+
+                    <label for="email_register">Email</label>
+                    <input type="text" class="form-control" id="email_register"
+                           placeholder="email@mail.com" aria-describedby="email_register_help">
+                    <span id="email_register_help" class="help-block"></span>
+
+                    <label for="password1_register">Password</label>
+                    <input type="password" class="form-control" id="password1_register"
+                           placeholder="Password" aria-describedby="password_register_help">
+                    <input type="password" class="form-control" id="password2_register"
+                           placeholder="Confirm Password" aria-describedby="password_register_help">
+                    <span id="password_register_help" class="help-block"></span>
+
+                    <label for="f_name_register">First Name</label>
+                    <input type="text" class="form-control" id="f_name_register"
+                           placeholder="First Name" aria-describedby="f_name_register_help">
+                    <span id="f_name_register_help" class="help-block"></span>
+
+                    <label for="l_name_register">Last Name</label>
+                    <input type="text" class="form-control" id="l_name_register"
+                           placeholder="First Name" aria-describedby="l_name_register_help">
+                    <span id="l_name_register_help" class="help-block"></span>
+
+                    <label for="address_register">Address <small style="color: red;">*optional</small></label>
+                    <input type="text" class="form-control" id="address_register"
+                           placeholder="Address" aria-describedby="address_register_help">
+                    <span id="address_register_help" class="help-block"></span>
+                    <p>Already have an account? <a href="" data-dismiss="modal" data-toggle="modal" data-target="#log_in">Log in!</a></p>
                 </div>
                 <div class="modal-footer">
-                    <input type="submit" id="submit_login" class="btn btn-primary" value="Log In">
+                    <input type="submit" id="submit_register" class="btn btn-primary" value="Sign Up">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 </div>
             </form>
