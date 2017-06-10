@@ -1,5 +1,5 @@
 <?php
-//    session_start();
+    session_start();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -43,10 +43,10 @@
                     <li id="shop"><a href="shop.php">Shop</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right md">
-                    <?php
-                        if(!$_SESSION['logged_in'])
-                        {
-                    ?>
+                <?php
+                    if(!$_SESSION['logged_in'])
+                    {
+                ?>
                     <li id="reg">
                         <a href="register.php">
                             <span class="glyphicon glyphicon-user"></span> Sign Up
@@ -57,11 +57,11 @@
                             <span class="glyphicon glyphicon-log-in"></span> Login
                         </a>
                     </li>
-                    <?php
-                        }
-                        else
-                        {
-                    ?>
+                <?php
+                    }
+                    else
+                    {
+                ?>
                     <li id="profile">
                         <a href="profile.php">
                             <span class="glyphicon glyphicon-user"></span> Profile
@@ -72,10 +72,28 @@
                             <span class="glyphicon glyphicon-log-out"></span> Log Out
                         </a>
                     </li>
-                    <?php
+
+                <?php
+                        if($_SESSION['admin'])
+                        {
+                ?>
+                        <button class="btn btn-danger" style="margin-top: 5px; margin-left: 5px">
+                            <span class="glyphicon glyphicon-cog"> ADMIN AREA
+                        </button>
+                <?php
                         }
-                    ?>
-                    <li id="cart"><a href="cart.php"><span class="glyphicon glyphicon-shopping-cart"></span> Cart</a></li>
+                        else
+                        {
+                ?>
+                    <li id="cart">
+                        <a href="cart.php">
+                            <span class="glyphicon glyphicon-shopping-cart"></span> Cart
+                        </a>
+                    </li>
+                <?php
+                        }
+                    }
+                ?>
                 </ul>
                 <form class="navbar-form navbar-right md">
                     <div class="input-group">
@@ -122,15 +140,15 @@
     </div>
 </div>
 
-<!-- LOGIN ERROR -->
-<div id="log_in_error" class="modal fade" role="dialog">
+<!-- ERROR -->
+<div id="error" class="modal fade" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <div class="modal-title">ERROR!</div>
             </div>
             <div class="modal-body">
-                <span id="login_error" class="help-block"></span>
+                <span id="error_text" class="help-block"></span>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
@@ -139,6 +157,7 @@
     </div>
 </div>
 
+<!-- JUMBOTRON -->
 <div class="jumbotron">
     <div class="container text-center">
         <h1>New Day</h1>

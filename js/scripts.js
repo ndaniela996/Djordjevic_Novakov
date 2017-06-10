@@ -72,19 +72,19 @@ function Validation()
 
 function LoginSuccess(data,status,xhr)
 {
-    if(data.empty())
+    if(data='LOGGED IN')
     {
-        window.location.reload();
+        window.location.replace('');
     }
     else
     {
-        $('#login_error').html(data);
-        $('#log_in_error').modal('show');
+        $('#error_text').html(data);
+        $('#error').modal('show');
     }
 }
 
 function LoginError(xhr,status,error)
 {
-    $('#login_error').html('And error occurred while attempting to log in! Please try again.');
-    $('#log_in_error').modal('show');
+    $('#error_text').html('And error occurred while attempting to log in! Please try again.');
+    $('#error').modal('show');
 }
