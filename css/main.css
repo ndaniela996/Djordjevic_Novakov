@@ -7,6 +7,11 @@
 .jumbotron
 {
     background-image: url("../img/placeholder.png");
-    background-size: 100%;
+    background-size: cover;
     background-repeat: no-repeat;
+}
+
+.footer
+{
+    background-color: #8fd9f1;
 }
