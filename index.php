@@ -22,6 +22,8 @@
     <script src="js/scripts.js"></script>
 </head>
 <body>
+
+<!-- MENU -->
 <div class="nav">
     <nav class="navbar navbar-default">
         <div class="container">
@@ -45,15 +47,31 @@
                         if(!$_SESSION['logged_in'])
                         {
                     ?>
-                    <li id="reg"><a href="register.php"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-                    <li id="login"><a href="login.php"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                    <li id="reg">
+                        <a href="register.php">
+                            <span class="glyphicon glyphicon-user"></span> Sign Up
+                        </a>
+                    </li>
+                    <li id="login">
+                        <a href="" data-toggle="modal" data-target="#log_in">
+                            <span class="glyphicon glyphicon-log-in"></span> Login
+                        </a>
+                    </li>
                     <?php
                         }
                         else
                         {
                     ?>
-                    <li id="profile"><a href="profile.php"><span class="glyphicon glyphicon-user"></span> Profile</a></li>
-                    <li id="logout"><a href="logout.php"><span class="glyphicon glyphicon-log-out"></span> Log Out</a></li>
+                    <li id="profile">
+                        <a href="profile.php">
+                            <span class="glyphicon glyphicon-user"></span> Profile
+                        </a>
+                    </li>
+                    <li id="logout">
+                        <a href="">
+                            <span class="glyphicon glyphicon-log-out"></span> Log Out
+                        </a>
+                    </li>
                     <?php
                         }
                     ?>
@@ -74,12 +92,61 @@
     </nav>
 </div>
 
+<!-- LOGIN FORM -->
+<div id="log_in" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Login</h4>
+            </div>
+            <form id="login_form">
+            <div class="modal-body">
+                <div class="form-group" id="username_div">
+                    <label for="username">Username</label>
+                    <input type="text" class="form-control" id="username" placeholder="Username" aria-describedby="username_help">
+                    <span id="username_help" class="help-block"></span>
+                </div>
+                <div class="form-group" id="password_div">
+                    <label for="password">Password</label>
+                    <input type="password" class="form-control" id="password" placeholder="Password" aria-describedby="password_help">
+                    <span id="password_help" class="help-block"></span>
+                </div>
+                <p>Dont's have an account? <a href="register.php">Sign up!</a></p>
+            </div>
+            <div class="modal-footer">
+                <input type="submit" id="submit_login" class="btn btn-primary" value="Log In">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- LOGIN ERROR -->
+<div id="log_in_error" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title">ERROR!</div>
+            </div>
+            <div class="modal-body">
+                <span id="login_error" class="help-block"></span>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="jumbotron">
     <div class="container text-center">
         <h1>New Day</h1>
         <p>A website for all your clothing needs.</p>
     </div>
 </div>
+
+<!-- NEWS -->
 
 <div class="container">
     <div class="row">
@@ -131,6 +198,7 @@
     </div>
 </div>
 
+<!-- ABOUT -->
 <div class="container-fluid text-center footer">
     <h2>New Day <small>for all your clothing needs</small></h2>
     <h4><u>About us:</u></h4>
