@@ -1,0 +1,12 @@
+.navbar
+{
+    margin-bottom: 0;
+    border-radius: 0;
+}
+
+.jumbotron
+{
+    background-image: url("../img/placeholder.png");
+    background-size: 100%;
+    background-repeat: no-repeat;
+}
