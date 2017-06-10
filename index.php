@@ -124,6 +124,7 @@
                     <input type="text" class="form-control" id="username" placeholder="Username" aria-describedby="username_help">
                     <span id="username_help" class="help-block"></span>
                 </div>
+
                 <div class="form-group" id="password_div">
                     <label for="password">Password</label>
                     <input type="password" class="form-control" id="password" placeholder="Password" aria-describedby="password_help">
@@ -166,37 +167,49 @@
             </div>
             <form id="register-form">
                 <div class="modal-body">
-                    <label for="username_register">Username</label>
-                    <input type="text" class="form-control" id="username_register"
-                           placeholder="Username" aria-describedby="username_register_help">
-                    <span id="username_register_help" class="help-block"></span>
+                    <div class="form-group" id="username_register_div">
+                        <label for="username_register">Username</label>
+                        <input type="text" class="form-control" id="username_register"
+                               placeholder="Username" aria-describedby="username_register_help">
+                        <span id="username_register_help" class="help-block"></span>
+                    </div>
 
-                    <label for="email_register">Email</label>
-                    <input type="text" class="form-control" id="email_register"
-                           placeholder="email@mail.com" aria-describedby="email_register_help">
-                    <span id="email_register_help" class="help-block"></span>
+                    <div class="form-group" id="email_register_div">
+                        <label for="email_register">Email</label>
+                        <input type="text" class="form-control" id="email_register"
+                               placeholder="email@mail.com" aria-describedby="email_register_help">
+                        <span id="email_register_help" class="help-block"></span>
+                    </div>
 
-                    <label for="password1_register">Password</label>
-                    <input type="password" class="form-control" id="password1_register"
-                           placeholder="Password" aria-describedby="password_register_help">
-                    <input type="password" class="form-control" id="password2_register"
-                           placeholder="Confirm Password" aria-describedby="password_register_help">
-                    <span id="password_register_help" class="help-block"></span>
+                    <div class="form-group" id="password_register_div">
+                        <label for="password1_register">Password</label>
+                        <input type="password" class="form-control" id="password1_register"
+                               placeholder="Password" aria-describedby="password_register_help">
+                        <input type="password" class="form-control" id="password2_register"
+                               placeholder="Confirm Password" aria-describedby="password_register_help">
+                        <span id="password_register_help" class="help-block"></span>
+                    </div>
 
-                    <label for="f_name_register">First Name</label>
-                    <input type="text" class="form-control" id="f_name_register"
-                           placeholder="First Name" aria-describedby="f_name_register_help">
-                    <span id="f_name_register_help" class="help-block"></span>
+                    <div class="form-group" id="f_name_register_div">
+                        <label for="f_name_register">First Name</label>
+                        <input type="text" class="form-control" id="f_name_register"
+                               placeholder="First Name" aria-describedby="f_name_register_help">
+                        <span id="f_name_register_help" class="help-block"></span>
+                    </div>
 
-                    <label for="l_name_register">Last Name</label>
-                    <input type="text" class="form-control" id="l_name_register"
-                           placeholder="First Name" aria-describedby="l_name_register_help">
-                    <span id="l_name_register_help" class="help-block"></span>
+                    <div class="form-group" id="l_name_register_div">
+                        <label for="l_name_register">Last Name</label>
+                        <input type="text" class="form-control" id="l_name_register"
+                               placeholder="First Name" aria-describedby="l_name_register_help">
+                        <span id="l_name_register_help" class="help-block"></span>
+                    </div>
 
-                    <label for="address_register">Address <small style="color: red;">*optional</small></label>
-                    <input type="text" class="form-control" id="address_register"
-                           placeholder="Address" aria-describedby="address_register_help">
-                    <span id="address_register_help" class="help-block"></span>
+                    <div class="form-group" id="address_register_div">
+                        <label for="address_register">Address <small style="color: red;">*optional</small></label>
+                        <input type="text" class="form-control" id="address_register"
+                               placeholder="Address" aria-describedby="address_register_help">
+                        <span id="address_register_help" class="help-block"></span>
+                    </div>
                     <p>Already have an account? <a href="" data-dismiss="modal" data-toggle="modal" data-target="#log_in">Log in!</a></p>
                 </div>
                 <div class="modal-footer">
