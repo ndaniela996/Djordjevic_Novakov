@@ -143,6 +143,12 @@ $(document).ready(function()
             $('#l_name_register_help').html('');
         }
     });
+
+    //FOR ADMIN AREA
+    $('#admin_area').click(function()
+    {
+        window.location.replace('admin_area.php');
+    });
 });
 
 // FOR LOGIN
@@ -192,7 +198,7 @@ function Error(xhr,status,error)
 // FOR LOGOUT
 function LogoutSuccess(data,status,xhr)
 {
-    window.location.reload();
+    window.location.replace('index.php');
 }
 
 //FOR REGISTER
