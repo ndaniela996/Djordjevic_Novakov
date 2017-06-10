@@ -285,7 +285,7 @@
 <div class="container-fluid text-center footer">
     <h2>New Day <small>for all your clothing needs</small></h2>
     <h4><u>About us:</u></h4>
-    <p>Address: <small>Marka Oreškovi?a 16,<br>Subotica, Republic of Serbia</small></p>
+    <p>Address: <small>Marka Oreskovica 16,<br>Subotica, Republic of Serbia</small></p>
     <p>Phone: <small>012-345-6789</small></p>
     <p>Email: <small>support@newday.com</small></p>
 </div>
