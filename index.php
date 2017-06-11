@@ -95,7 +95,7 @@
                     }
                 ?>
                 </ul>
-                <form class="navbar-form navbar-right md">
+                <form class="navbar-form navbar-right md" action="search.php" method="GET">
                     <div class="input-group">
                         <input type="text" class="form-control" placeholder="Search">
                         <div class="input-group-btn">
