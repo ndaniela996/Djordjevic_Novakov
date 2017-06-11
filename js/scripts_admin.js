@@ -37,6 +37,37 @@ $(document).ready(function()
         page='admins';
         ChangePage(page);
     });
+
+    // DELIVERY
+    $('.nd_result').on('click','.nd_deliver',function()
+    {
+        $('#confirm_delivery').modal('show');
+
+    });
+
+    $('#nd_confirm_deliver').click(function()
+    {
+        var order_id=$('.nd_deliver').val();
+
+        $.ajax(
+            {
+                type: 'POST',
+                url: 'admin_pages.php',
+                success: OrderSuccess,
+                error: AdminError,
+                data: "order_id="+order_id,
+                dataType: 'html'
+            }
+        );
+        $('#nd_confirm_deliver').hide();
+    });
+
+    // COMMENTS
+    $('.nd_result').on('click','.nd_go_to',function()
+    {
+        var article_id=$('.nd_go_to').val();
+        window.location.replace('shop.php?a='+article_id);
+    });
 });
 
 function ChangePage(page)
@@ -56,6 +87,11 @@ function ChangePage(page)
 function AdminSuccess(data,status,xhr)
 {
     $('.nd_result').html(data);
+}
+
+function OrderSuccess(data,status,xhr)
+{
+    $('#nd_delivery_text').html(data);
 }
 
 function AdminError(xhr,status,error)

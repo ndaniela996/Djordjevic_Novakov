@@ -154,6 +154,23 @@
     </div>
 </div>
 
+<div id="confirm_delivery" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title">Confirm delivery</div>
+            </div>
+            <div class="modal-body" id="nd_delivery_text">
+                Do you really want to mark this order as delivered and charge the appropriate account?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" id="nd_confirm_deliver">CONFIRM</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 </body>
 </html>
 <?php

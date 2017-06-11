@@ -2,18 +2,21 @@
     global $connection;
     require_once('db_config.php');
 
-    $page=$_POST['page'];
     $display="";
 
-    switch($page)
+    if(isset($_POST['page']))
     {
-        case 'orders':
-            $sql="SELECT o.id_orders,a.name_article,u.username,o.number_ordered,o.price,o.time FROM orders o JOIN article a ON a.id_article=o.id_article JOIN users u ON u.id_user=o.id_user WHERE o.delivered=0 ORDER BY o.time ASC";
-            $result=mysqli_query($connection,$sql);
+        $page=$_POST['page'];
 
-            if(mysqli_num_rows($result)>0)
-            {
-                $display.="<div class='row' style='font-weight: bold; font-size: large; color: #ffffff;'>
+        switch($page)
+        {
+            case 'orders':
+                $sql="SELECT o.id_orders,a.name_article,u.username,o.number_ordered,o.price,o.time FROM orders o JOIN article a ON a.id_article=o.id_article JOIN users u ON u.id_user=o.id_user WHERE o.delivered=0 ORDER BY o.time ASC";
+                $result=mysqli_query($connection,$sql);
+
+                if(mysqli_num_rows($result)>0)
+                {
+                    $display.="<div class='row' style='font-weight: bold; font-size: large; color: #ffffff;'>
     <div class='col-md-3'>
         Time
     </div>
@@ -30,10 +33,10 @@
         Total
     </div>
 </div>";
-                while($r=mysqli_fetch_array($result))
-                {
-                    $price=$r['price']/100;
-                    $display.="<div class='row' style='border-bottom: 1px solid #fff;'>
+                    while($r=mysqli_fetch_array($result))
+                    {
+                        $price=$r['price']/100;
+                        $display.="<div class='row' style='border-bottom: 1px solid #fff;'>
     <div class='col-md-3' style='padding-top: 10px'>
         ".$r['time']."
     </div>
@@ -53,17 +56,16 @@
         <button class='btn btn-danger nd_deliver' value='".$r['id_orders']."'>Deliver</button>
     </div>
 </div>";
+                    }
                 }
-            }
+                break;
+            case 'comments':
+                $sql="SELECT c.id_article,a.name_article,u.username,c.comment,c.time FROM comments c JOIN article a ON a.id_article=c.id_article JOIN users u ON u.id_user=c.id_user ORDER BY c.time";
+                $result=mysqli_query($connection,$sql);
 
-            break;
-        case 'comments':
-            $sql="SELECT c.id_comment,a.name_article,u.username,c.comment,c.time FROM comments c JOIN article a ON a.id_article=c.id_article JOIN users u ON u.id_user=c.id_user ORDER BY c.time";
-            $result=mysqli_query($connection,$sql);
-
-            if(mysqli_num_rows($result)>0)
-            {
-                $display.="<div class='row' style='font-weight: bold; font-size: large; color: #ffffff;'>
+                if(mysqli_num_rows($result)>0)
+                {
+                    $display.="<div class='row' style='font-weight: bold; font-size: large; color: #ffffff;'>
     <div class='col-md-3'>
         Time
     </div>
@@ -77,9 +79,9 @@
         Comment
     </div>
 </div>";
-                while($r=mysqli_fetch_array($result))
-                {
-                    $display.="<div class='row' style='border-bottom: 1px solid #fff;'>
+                    while($r=mysqli_fetch_array($result))
+                    {
+                        $display.="<div class='row' style='border-bottom: 1px solid #fff;'>
     <div class='col-md-3' style='padding-top: 10px'>
         ".$r['time']."
     </div>
@@ -93,21 +95,41 @@
         ".$r['comment']."
     </div>
     <div class='col-md-1'>
-        <button class='btn btn-danger nd_go_to' value='".$r['id_comment']."'>Go To</button>
+        <button class='btn btn-danger nd_go_to' value='".$r['id_article']."'>Go To</button>
     </div>
 </div>";
+                    }
                 }
-            }
-            break;
-        case 'articles':
-            $display="add articles";
-            break;
-        case 'admins':
-            $display="admins";
-            break;
-        default:
-            $display.="Error!";
-            break;
+                break;
+            case 'articles':
+                $display="add articles";
+                break;
+            case 'admins':
+                $display="admins";
+                break;
+            default:
+                $display.="Error!";
+                break;
+        }
     }
+
+    if(isset($_POST['order_id']))
+    {
+        $order_id=$_POST['order_id'];
+
+        $sql="CALL deliver('$order_id')";
+        $result=mysqli_query($connection,$sql);
+
+        if($result===true)
+        {
+            $display.="Delivery successful!";
+        }
+        else
+        {
+            while($r=mysqli_fetch_array($result))
+                $display.="Error: ".$r[0];
+        }
+    }
+
 
     echo $display;
