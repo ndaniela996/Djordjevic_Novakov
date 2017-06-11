@@ -6,7 +6,7 @@ require('db_config.php');
 <html lang="en">
 <head>
     <title>Search results</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="UTF-8">
     <link rel="stylesheet" type="text/css" href="style.css"/>
 <!--    ne znam koji stil da koristi ti nadji neki -->
 </head>
