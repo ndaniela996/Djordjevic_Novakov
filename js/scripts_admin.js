@@ -54,7 +54,7 @@ $(document).ready(function()
                 type: 'POST',
                 url: 'admin_pages.php',
                 success: OrderSuccess,
-                error: AdminError,
+                error: Error,
                 data: "order_id="+order_id,
                 dataType: 'html'
             }
@@ -77,7 +77,7 @@ function ChangePage(page)
             type: 'POST',
             url: 'admin_pages.php',
             success: AdminSuccess,
-            error: AdminError,
+            error: Error,
             data: "page="+page,
             dataType: 'html'
         }
@@ -89,12 +89,14 @@ function AdminSuccess(data,status,xhr)
     $('.nd_result').html(data);
 }
 
+function Error(xhr,status,error)
+{
+    alert('An error has occurred: '+error);
+}
+
+// DELIVERY
 function OrderSuccess(data,status,xhr)
 {
     $('#nd_delivery_text').html(data);
 }
 
-function AdminError(xhr,status,error)
-{
-    alert('An error has occurred: '+error);
-}

@@ -102,10 +102,10 @@
                 }
                 break;
             case 'articles':
-                $display="add articles";
+                $display.="add articles";
                 break;
             case 'admins':
-                $display="admins";
+                $display.="admins";
                 break;
             default:
                 $display.="Error!";
@@ -131,5 +131,5 @@
         }
     }
 
-
     echo $display;
+    mysqli_close($connection);

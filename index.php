@@ -222,7 +222,7 @@
 </div>
 
 <!-- JUMBOTRON -->
-<div class="jumbotron">
+<div class="jumbotron banner">
     <div class="container text-center">
         <h1>New Day</h1>
         <p>A website for all your clothing needs.</p>

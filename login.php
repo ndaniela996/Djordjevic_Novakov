@@ -10,21 +10,24 @@
     $pass=mysqli_real_escape_string($connection,$pass);
     $pass=$salt1.$pass.$salt2;
 
-    $sql="SELECT username,admin FROM users WHERE username='$user' AND password=md5('$pass')";
+    $sql="SELECT id_user,username,admin FROM users WHERE username='$user' AND password=md5('$pass')";
     $result=mysqli_query($connection,$sql);
 
     if (mysqli_num_rows($result)>0)
     {
+        $id_user='';
         $username='';
         $admin='';
 
         while($r=mysqli_fetch_array($result))
         {
+            $id_user=$r['id_user'];
             $username=$r['username'];
             $admin=$r['admin'];
         }
 
         $_SESSION['logged_in'] = true;
+        $_SESSION['id_user'] = $id_user;
         $_SESSION['username'] = $username;
 
         if($admin)
