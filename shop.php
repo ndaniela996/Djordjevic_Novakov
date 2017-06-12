@@ -90,7 +90,7 @@
                             {
                                 ?>
                                 <li id="cart">
-                                    <a href="cart.php">
+                                    <a href="">
                                         <span class="glyphicon glyphicon-shopping-cart"></span> Cart
                                     </a>
                                 </li>
@@ -226,10 +226,49 @@
     </div>
 </div>
 
+<!-- CART -->
+<div id="cart_modal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4><div class="modal-title">Your cart</div></h4>
+            </div>
+            <div class="modal-body">
+                <div id="cart_contents"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" value="none" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ADD TO CART -->
+<div id="cart_added" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <span id="added_cart"></span>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- PAGE -->
+<?php
+    $article="";
+    $article=$_GET['a'];
+    $article=mysqli_real_escape_string($connection,$article);
+    if($article=="")
+    {
+?>
 <div class="container">
     <div class="row">
-        <div class="col-md-3">
+        <!-- TYPES -->
+        <div class="col-md-3" id="nd_type">
             <button class="btn btn-default" value="all" style="width: 100%;">
                 All
             </button>
@@ -249,7 +288,146 @@
                 }
             ?>
         </div>
-        <div class="col-md-9" id="shop_area">
+
+        <!-- PAGE -->
+        <div class="col-md-9">
+            <input type="hidden" id="nd_page" value="1">
+            <div id="shop_area"></div>
+
+            <!-- PAGE NAV -->
+            <nav aria-label="Page navigation">
+                <ul class="pager">
+                    <li class="previous">
+                        <a href="">
+                            <span aria-hidden="true">&larr;</span> Back
+                        </a>
+                    </li>
+                    <li class="next">
+                        <a href="">
+                            Next <span aria-hidden="true">&rarr;</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>
+<?php
+    }
+    else
+    {
+        $sql="SELECT * FROM article WHERE id_article='$article'";
+        $result=mysqli_query($connection,$sql);
+
+        if(mysqli_num_rows($result)>0)
+        {
+            while($r=mysqli_fetch_array($result))
+            {
+                ?>
+<div class="container">
+    <div class="row">
+        <input type="hidden" id="article_id" value="<?php echo $r['id_article']; ?>">
+        <div class="col-md-4" style="padding: 5px; border-radius: 10px; border: 3px solid #1e60d3">
+            <img src="img/articles/<?php echo $r['id_article']; ?>.jpg" class="img-responsive">
+        </div>
+        <div class="col-md-1"></div>
+        <div class="col-md-7">
+            <h2>
+                <?php
+                    echo $r['name_article'];
+                    if($r['discount']!='')
+                    {
+                        echo " - <small>Discount ".$r['discount']."%</small>";
+                    }
+                ?>
+                <small>
+                    <a href="shop.php" style="float: right;">
+                        <button class="btn btn-default">Back</button>
+                    </a>
+                    <?php if(isset($_SESSION['logged_in']) && !isset($_SESSION['admin'])){ ?>
+                    <a href="" style="float: right;" id="cart_add">
+                        <button class="btn btn-primary">
+                            <span class="glyphicon glyphicon-shopping-cart"></span> Add to Cart
+                        </button>
+                    </a>
+                    <?php } ?>
+                </small>
+            </h2>
+            <hr style="border-width: 3px; border-color: #1e60d3;">
+            <br>
+            <div style="float: right; text-align: right;">
+                <h2><small><s><?php echo $r['price_base']/100; echo " RSD"; ?></s></small></h2>
+                <h1><?php echo $r['price_sell']/100; echo " RSD"; ?></h1>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="row" style="padding: 0 10px;">
+        <h2>Comments:
+            <?php if(isset($_SESSION['logged_in'])){ ?>
+            <small style="float: right;">
+                <a href="" data-toggle="modal" data-target="#comment">
+                    <button class="btn btn-default">Comment!</button>
+                </a>
+            </small>
+            <?php } ?>
+        </h2>
+        <hr style="border-color: #1e60d3;">
+        <?php
+            $sql="SELECT username,comment,time FROM comments cm JOIN users u ON u.id_user=cm.id_user WHERE id_article='$article'";
+            $result=mysqli_query($connection,$sql);
+
+            if(mysqli_num_rows($result)==0)
+            {
+                ?>
+                <h3><small>There are no comments on this article.</small></h3>
+                <?php
+            }
+            else
+            {
+                while($r=mysqli_fetch_array($result))
+                {
+                    ?>
+                    <div>
+                        <h3><?php echo $r['username']; ?><small style="float: right"><?php echo $r['time']; ?></small></h3>
+                        <p><?php echo $r['comment']; ?></p>
+                    </div>
+                    <hr style="border-color: #1e60d3;">
+                    <?php
+                }
+            }
+        ?>
+    </div>
+</div>
+                <?php
+            }
+        }
+    }
+?>
+
+<!-- COMMENT FORM -->
+<div id="comment" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Comment</h4>
+            </div>
+            <form id="comment_form">
+                <div class="modal-body" id="comment_modal_body">
+                    <input type="hidden" id="comment_user" value="<?php echo $_SESSION['id_user']; ?>">
+                    <input type="hidden" id="comment_article" value="<?php echo $article; ?>">
+
+                    <div class="form-group" id="password_div">
+                        <label for="comment_text">Comment:</label>
+                        <textarea class="form-control" id="comment_text" placeholder="Type your comment here." aria-describedby="comment_help"></textarea>
+                        <span id="comment_help" class="help-block"></span>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <input type="submit" id="submit_comment" class="btn btn-primary" value="Submit">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
@@ -259,3 +437,4 @@
 <?php
     mysqli_close($connection);
 ?>
+

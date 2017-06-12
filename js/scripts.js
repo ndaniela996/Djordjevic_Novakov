@@ -149,6 +149,21 @@ $(document).ready(function()
     {
         window.location.replace('admin_area.php');
     });
+
+    //FOR CART
+    $('#cart').click(function(e)
+    {
+        e.preventDefault();
+        var id='open';
+        getCart(id);
+        $('#cart_modal').modal('show');
+    });
+
+    $('#cart_modal').on('click','button',function()
+    {
+        var id=this.value;
+        getCart(id);
+    });
 });
 
 // FOR LOGIN
@@ -191,7 +206,7 @@ function LoginSuccess(data,status,xhr)
 
 function Error(xhr,status,error)
 {
-    $('#error_text').html('And error occurred! Please try again.');
+    $('#error_text').html('An error occurred! Please try again.');
     $('#error').modal('show');
 }
 
@@ -282,5 +297,52 @@ function RegisterSuccess(data,status,xhr)
     {
         $('#error_text').html(data);
         $('#error').modal('show');
+    }
+}
+
+//FOR CART
+function getCart(id)
+{
+    if(id!="none")
+    {
+        if(id=='open')
+        {
+            $.ajax(
+                {
+                    type: 'POST',
+                    url: 'cart.php',
+                    success: CartSuccess,
+                    error: Error,
+                    dataType: 'html'
+                }
+            );
+        }
+        else
+        {
+            $.ajax(
+                {
+                    type: 'POST',
+                    url: 'cart.php',
+                    success: CartSuccess,
+                    error: Error,
+                    data: "id="+id,
+                    dataType: 'html'
+                }
+            );
+        }
+    }
+}
+
+function CartSuccess(data,status,xhr)
+{
+    if(data=='')
+    {
+        $('#cart_modal').modal('hide');
+        $('#error_text').html('An error occurred! Please try again.');
+        $('#error').modal('show');
+    }
+    else
+    {
+        $('#cart_contents').html(data);
     }
 }

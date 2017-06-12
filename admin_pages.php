@@ -60,7 +60,7 @@
                 }
                 break;
             case 'comments':
-                $sql="SELECT c.id_article,a.name_article,u.username,c.comment,c.time FROM comments c JOIN article a ON a.id_article=c.id_article JOIN users u ON u.id_user=c.id_user ORDER BY c.time";
+                $sql="SELECT c.id_article,a.name_article,u.username,c.comment,c.time FROM comments c JOIN article a ON a.id_article=c.id_article JOIN users u ON u.id_user=c.id_user ORDER BY c.time DESC";
                 $result=mysqli_query($connection,$sql);
 
                 if(mysqli_num_rows($result)>0)
@@ -95,7 +95,9 @@
         ".$r['comment']."
     </div>
     <div class='col-md-1'>
-        <button class='btn btn-danger nd_go_to' value='".$r['id_article']."'>Go To</button>
+        <a href='shop.php?a=".$r['id_article']."'>
+            <button class='btn btn-danger nd_go_to'>Go To</button>
+        </a>
     </div>
 </div>";
                     }

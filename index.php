@@ -86,7 +86,7 @@
                         {
                 ?>
                     <li id="cart">
-                        <a href="cart.php">
+                        <a href="">
                             <span class="glyphicon glyphicon-shopping-cart"></span> Cart
                         </a>
                     </li>
@@ -217,6 +217,23 @@
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 </div>
             </form>
+        </div>
+    </div>
+</div>
+
+<!--CART-->
+<div id="cart_modal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4><div class="modal-title">Your cart</div></h4>
+            </div>
+            <div class="modal-body">
+                <div id="cart_contents"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" value="none" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
         </div>
     </div>
 </div>

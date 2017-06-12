@@ -61,13 +61,6 @@ $(document).ready(function()
         );
         $('#nd_confirm_deliver').hide();
     });
-
-    // COMMENTS
-    $('.nd_result').on('click','.nd_go_to',function()
-    {
-        var article_id=$('.nd_go_to').val();
-        window.location.replace('shop.php?a='+article_id);
-    });
 });
 
 function ChangePage(page)
