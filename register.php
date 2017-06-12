@@ -14,11 +14,18 @@
         $pass!='' && $f_name!='' && $l_name!='')
     {
         $sql="SELECT email FROM users WHERE email='$email'";
-        $result=mysqli_query($connection,$sql);
+        $result1=mysqli_query($connection,$sql);
 
-        if(mysqli_num_rows($result)>0)
+        $sql="SELECT username FROM users WHERE username='$username'";
+        $result2=mysqli_query($connection,$sql);
+
+        if(mysqli_num_rows($result1)>0)
         {
             echo "That email is already registered.";
+        }
+        else if(mysqli_num_rows($result2)>0)
+        {
+            echo "That username already exists.";
         }
         else
         {
