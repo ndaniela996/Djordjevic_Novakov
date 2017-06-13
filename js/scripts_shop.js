@@ -110,6 +110,12 @@ $(document).ready(function()
             AddCart(id,num);
         }
     );
+
+    $('#close_order').click(function()
+    {
+        $('#added_cart').html('<label for="num_ordered">How many of these would you like?</label><input type="number" id="num_ordered">');
+        $('#order_submit').show();
+    });
 });
 
 //ERROR FUNCTION

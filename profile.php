@@ -39,7 +39,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="">
+                <a class="navbar-brand" href="index.php">
                     <strong>New Day</strong>
                 </a>
             </div>
@@ -143,7 +143,7 @@
     }
 ?>
 
-<!--CART-->
+<!-- CART -->
 <div id="cart_modal" class="modal fade" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -160,7 +160,24 @@
     </div>
 </div>
 
-<!--JUMBOTRON-->
+<!-- ERROR -->
+<div id="error" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title">ERROR!</div>
+            </div>
+            <div class="modal-body">
+                <span id="error_text" class="help-block"></span>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- JUMBOTRON -->
 <div class="container">
     <div class="jumbotron">
         <h1>Hello, <?php echo $_SESSION['username']; ?>!</h1>
@@ -185,18 +202,10 @@
     ?>
 </div>
 
-<!--PAGE-->
+<!-- PAGE -->
 <div class="container">
     <div class="row">
-        <div class="col-md-3">
-            <button class="btn btn-primary" value="account" style="width: 100%;">
-                <span class="glyphicon glyphicon-piggy-bank"></span> Account
-            </button>
-            <button class="btn btn-primary" value="settings" style="width: 100%;">
-                <span class="glyphicon glyphicon-cog"></span> Profile Settings
-            </button>
-        </div>
-        <div class="col-md-9" id="profile_area">
+        <div class="col-md-12" id="profile_area">
             <div style="padding: 15px; text-align: center;">
                 <p>Name: <?php echo $f_name." ".$l_name; ?></p>
                 <p>Email: <?php echo $email ?></p>
@@ -204,7 +213,7 @@
                 <p>Address: <?php echo $address; ?></p>
                 <?php } ?>
             </div>
-            <br>
+            <hr>
             <div class="row">
                 <div class="col-md-4"></div>
                 <div class="col-md-4" style="border-radius: 5px; border: 2px solid #3174d2; text-align: center; font-weight: bold">
@@ -237,6 +246,23 @@
                             echo $total_spent." RSD";
                         ?>
                     </h3>
+                </div>
+            </div>
+            <hr>
+            <div class='row' style='text-align: center'>
+                <div class='col-md-6'>
+                    <p>Add money to your account:</p>
+                    <input type='number' id='add_money' placeholder='1000'> RSD
+                    <br><br>
+                    <button style='width: 50%' class='btn btn-primary' id='add_money_submit'><h4>ADD</h4></button>
+                    <hr>
+                </div>
+                <div class='col-md-6'>
+                    <p>Remove money from your account:</p>
+                    <input type='number' id='remove_money' placeholder='1000'> RSD
+                    <br><br>
+                    <button style='width: 50%' class='btn btn-primary' id='remove_money_submit'><h4>REMOVE</h4></button>
+                    <hr>
                 </div>
             </div>
         </div>

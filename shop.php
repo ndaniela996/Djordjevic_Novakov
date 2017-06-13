@@ -36,7 +36,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="">
+                <a class="navbar-brand" href="index.php">
                     <strong>New Day</strong>
                 </a>
             </div>
@@ -256,7 +256,7 @@
             </div>
             <div class="modal-footer">
                 <input type="submit" id="order_submit" class="btn btn-primary" value="Order!">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" id="close_order" class="btn btn-default" data-dismiss="modal">Close</button>
             </div>
             </form>
         </div>
