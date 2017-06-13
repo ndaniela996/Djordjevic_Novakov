@@ -99,9 +99,9 @@
                         }
                     ?>
                 </ul>
-                <form class="navbar-form navbar-right md">
+                <form class="navbar-form navbar-right md" id="search">
                     <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Search">
+                        <input id="search_text" type="text" class="form-control" placeholder="Search">
 
                         <div class="input-group-btn">
                             <button class="btn btn-default" type="submit">
@@ -247,41 +247,193 @@
 <div id="cart_added" class="modal fade" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
+            <form id="add_to_cart">
             <div class="modal-body">
-                <span id="added_cart"></span>
+                <span id="added_cart">
+                    <label for="num_ordered">How many of these would you like?</label>
+                    <input type="number" id="num_ordered">
+                </span>
             </div>
             <div class="modal-footer">
+                <input type="submit" id="order_submit" class="btn btn-primary" value="Order!">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
             </div>
+            </form>
         </div>
     </div>
 </div>
 
 <!-- PAGE -->
 <?php
-    $article="";
-    $article=$_GET['a'];
-    $article=mysqli_real_escape_string($connection,$article);
-    if($article=="")
+    $search="";
+    $search=$_GET['search'];
+    $search=mysqli_real_escape_string($connection,$search);
+
+    if($search=="")
+    {
+        $article="";
+        $article=$_GET['a'];
+        $article=mysqli_real_escape_string($connection,$article);
+        if($article=="")
+        {
+            ?>
+            <div class="container">
+                <div class="row">
+                    <!-- TYPES -->
+                    <div class="col-md-3" id="nd_type">
+                        <button class="btn btn-default" value="all" style="width: 100%;">
+                            All
+                        </button>
+                        <?php
+                            $sql="SELECT * FROM type ORDER BY name_type";
+                            $result=mysqli_query($connection,$sql);
+
+                            if(mysqli_num_rows($result))
+                            {
+                                while($r=mysqli_fetch_array($result))
+                                {
+                                    $display="<button class='btn btn-default' value='".$r['id_type']."' style='width: 100%;'>".
+                                        ucfirst($r['name_type'])."</button>";
+
+                                    echo $display;
+                                }
+                            }
+                        ?>
+                    </div>
+
+                    <!-- PAGE -->
+                    <div class="col-md-9">
+                        <input type="hidden" id="nd_page" value="1">
+                        <div id="shop_area"></div>
+
+                        <!-- PAGE NAV -->
+                        <nav aria-label="Page navigation">
+                            <ul class="pager">
+                                <li class="previous">
+                                    <a href="">
+                                        <span aria-hidden="true">&larr;</span> Back
+                                    </a>
+                                </li>
+                                <li class="next">
+                                    <a href="">
+                                        Next <span aria-hidden="true">&rarr;</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <?php
+        }
+        else
+        {
+            $sql="SELECT * FROM article WHERE id_article='$article'";
+            $result=mysqli_query($connection,$sql);
+
+            if(mysqli_num_rows($result)>0)
+            {
+                while($r=mysqli_fetch_array($result))
+                {
+                    ?>
+                    <div class="container">
+                        <div class="row">
+                            <input type="hidden" id="article_id" value="<?php echo $r['id_article']; ?>">
+                            <div class="col-md-4" style="padding: 5px; border-radius: 10px; border: 3px solid #1e60d3">
+                                <img src="img/articles/<?php echo $r['id_article']; ?>.jpg" class="img-responsive">
+                            </div>
+                            <div class="col-md-1"></div>
+                            <div class="col-md-7">
+                                <h2>
+                                    <?php
+                                        echo $r['name_article'];
+                                        if($r['discount']!='')
+                                        {
+                                            echo " - <small>Discount ".$r['discount']."%</small>";
+                                        }
+                                    ?>
+                                    <small>
+                                        <a href="shop.php" style="float: right;">
+                                            <button class="btn btn-default">Back</button>
+                                        </a>
+                                        <?php if(isset($_SESSION['logged_in']) && !isset($_SESSION['admin'])){ ?>
+                                            <a href="" style="float: right;" id="cart_add">
+                                                <button class="btn btn-primary">
+                                                    <span class="glyphicon glyphicon-shopping-cart"></span> Add to Cart
+                                                </button>
+                                            </a>
+                                        <?php } ?>
+                                    </small>
+                                </h2>
+                                <hr style="border-width: 3px; border-color: #1e60d3;">
+                                <br>
+                                <div style="float: right; text-align: right;">
+                                    <h2><small><s><?php echo $r['price_base']/100; echo " RSD"; ?></s></small></h2>
+                                    <h1><?php echo $r['price_sell']/100; echo " RSD"; ?></h1>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row" style="padding: 0 10px;">
+                            <h2>Comments:
+                                <?php if(isset($_SESSION['logged_in'])){ ?>
+                                    <small style="float: right;">
+                                        <a href="" data-toggle="modal" data-target="#comment">
+                                            <button class="btn btn-default">Comment!</button>
+                                        </a>
+                                    </small>
+                                <?php } ?>
+                            </h2>
+                            <hr style="border-color: #1e60d3;">
+                            <?php
+                                $sql="SELECT username,comment,time FROM comments cm JOIN users u ON u.id_user=cm.id_user WHERE id_article='$article'";
+                                $result=mysqli_query($connection,$sql);
+
+                                if(mysqli_num_rows($result)==0)
+                                {
+                                    ?>
+                                    <h3><small>There are no comments on this article.</small></h3>
+                                    <?php
+                                }
+                                else
+                                {
+                                    while($r=mysqli_fetch_array($result))
+                                    {
+                                        ?>
+                                        <div>
+                                            <h3><?php echo $r['username']; ?><small style="float: right"><?php echo $r['time']; ?></small></h3>
+                                            <p><?php echo $r['comment']; ?></p>
+                                        </div>
+                                        <hr style="border-color: #1e60d3;">
+                                        <?php
+                                    }
+                                }
+                            ?>
+                        </div>
+                    </div>
+                    <?php
+                }
+            }
+        }
+    }
+    else
     {
 ?>
 <div class="container">
     <div class="row">
         <!-- TYPES -->
         <div class="col-md-3" id="nd_type">
-            <button class="btn btn-default" value="all" style="width: 100%;">
-                All
-            </button>
+            <button class="btn btn-default" value="all" style="width: 100%;">All</button>
             <?php
-                $sql="SELECT * FROM type";
-                $result=mysqli_query($connection,$sql);
+                $sql = "SELECT * FROM type ORDER BY name_type";
+                $result = mysqli_query($connection, $sql);
 
-                if(mysqli_num_rows($result))
+                if (mysqli_num_rows($result))
                 {
-                    while($r=mysqli_fetch_array($result))
+                    while ($r = mysqli_fetch_array($result))
                     {
-                        $display="<button class='btn btn-default' value='".$r['id_type']."' style='width: 100%;'>".
-                        ucfirst($r['name_type'])."</button>";
+                        $display = "<button class='btn btn-default' value='" . $r['id_type'] . "' style='width: 100%;'>" .
+                            ucfirst($r['name_type']) . "</button>";
 
                         echo $display;
                     }
@@ -291,117 +443,13 @@
 
         <!-- PAGE -->
         <div class="col-md-9">
+            <input type="hidden" id="nd_searched" value="<?php echo $search; ?>">
             <input type="hidden" id="nd_page" value="1">
             <div id="shop_area"></div>
-
-            <!-- PAGE NAV -->
-            <nav aria-label="Page navigation">
-                <ul class="pager">
-                    <li class="previous">
-                        <a href="">
-                            <span aria-hidden="true">&larr;</span> Back
-                        </a>
-                    </li>
-                    <li class="next">
-                        <a href="">
-                            Next <span aria-hidden="true">&rarr;</span>
-                        </a>
-                    </li>
-                </ul>
-            </nav>
         </div>
     </div>
 </div>
 <?php
-    }
-    else
-    {
-        $sql="SELECT * FROM article WHERE id_article='$article'";
-        $result=mysqli_query($connection,$sql);
-
-        if(mysqli_num_rows($result)>0)
-        {
-            while($r=mysqli_fetch_array($result))
-            {
-                ?>
-<div class="container">
-    <div class="row">
-        <input type="hidden" id="article_id" value="<?php echo $r['id_article']; ?>">
-        <div class="col-md-4" style="padding: 5px; border-radius: 10px; border: 3px solid #1e60d3">
-            <img src="img/articles/<?php echo $r['id_article']; ?>.jpg" class="img-responsive">
-        </div>
-        <div class="col-md-1"></div>
-        <div class="col-md-7">
-            <h2>
-                <?php
-                    echo $r['name_article'];
-                    if($r['discount']!='')
-                    {
-                        echo " - <small>Discount ".$r['discount']."%</small>";
-                    }
-                ?>
-                <small>
-                    <a href="shop.php" style="float: right;">
-                        <button class="btn btn-default">Back</button>
-                    </a>
-                    <?php if(isset($_SESSION['logged_in']) && !isset($_SESSION['admin'])){ ?>
-                    <a href="" style="float: right;" id="cart_add">
-                        <button class="btn btn-primary">
-                            <span class="glyphicon glyphicon-shopping-cart"></span> Add to Cart
-                        </button>
-                    </a>
-                    <?php } ?>
-                </small>
-            </h2>
-            <hr style="border-width: 3px; border-color: #1e60d3;">
-            <br>
-            <div style="float: right; text-align: right;">
-                <h2><small><s><?php echo $r['price_base']/100; echo " RSD"; ?></s></small></h2>
-                <h1><?php echo $r['price_sell']/100; echo " RSD"; ?></h1>
-            </div>
-        </div>
-    </div>
-    <br>
-    <div class="row" style="padding: 0 10px;">
-        <h2>Comments:
-            <?php if(isset($_SESSION['logged_in'])){ ?>
-            <small style="float: right;">
-                <a href="" data-toggle="modal" data-target="#comment">
-                    <button class="btn btn-default">Comment!</button>
-                </a>
-            </small>
-            <?php } ?>
-        </h2>
-        <hr style="border-color: #1e60d3;">
-        <?php
-            $sql="SELECT username,comment,time FROM comments cm JOIN users u ON u.id_user=cm.id_user WHERE id_article='$article'";
-            $result=mysqli_query($connection,$sql);
-
-            if(mysqli_num_rows($result)==0)
-            {
-                ?>
-                <h3><small>There are no comments on this article.</small></h3>
-                <?php
-            }
-            else
-            {
-                while($r=mysqli_fetch_array($result))
-                {
-                    ?>
-                    <div>
-                        <h3><?php echo $r['username']; ?><small style="float: right"><?php echo $r['time']; ?></small></h3>
-                        <p><?php echo $r['comment']; ?></p>
-                    </div>
-                    <hr style="border-color: #1e60d3;">
-                    <?php
-                }
-            }
-        ?>
-    </div>
-</div>
-                <?php
-            }
-        }
     }
 ?>
 

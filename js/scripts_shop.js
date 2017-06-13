@@ -2,8 +2,15 @@ $(document).ready(function()
 {
     type='all';
     page=$('#nd_page').val();
-
-    ChangeType(type,page);
+    if($('#nd_searched').length)
+    {
+        var search=$('#nd_searched').val().trim();
+        Search(search);
+    }
+    else
+    {
+        ChangeType(type,page);
+    }
 
     //CHANGE PAGES
     $('.previous').addClass('disabled');
@@ -91,15 +98,24 @@ $(document).ready(function()
     $('#cart_add').click(function(e)
     {
         e.preventDefault();
-        var id=$('#article_id').val();
-        AddCart(id);
-    })
+        $('#cart_added').modal('show');
+
+    });
+
+    $('#add_to_cart').submit(function(e)
+        {
+            e.preventDefault();
+            var id=$('#article_id').val();
+            var num=$('#num_ordered').val();
+            AddCart(id,num);
+        }
+    );
 });
 
 //ERROR FUNCTION
 function Error(xhr,status,error)
 {
-    $('#error_text').html('An error occurred! Please try again.');
+    $('#error_text').html('An error occurred! Please, try again.');
     $('#error').modal('show');
 }
 
@@ -148,7 +164,7 @@ function CommentSuccess(data,status,xhr)
 }
 
 //FOR CART
-function AddCart(id)
+function AddCart(id,num)
 {
     $.ajax(
         {
@@ -156,7 +172,7 @@ function AddCart(id)
             url: 'cart.php',
             success: CartAddSuccess,
             error: Error,
-            data: "add_id="+id,
+            data: "add_id="+id+"&num="+num,
             dataType: 'html'
         }
     );
@@ -165,5 +181,20 @@ function AddCart(id)
 function CartAddSuccess(data,status,xhr)
 {
     $('#added_cart').html(data);
-    $('#cart_added').modal('show');
+    $('#order_submit').hide();
+}
+
+//FOR SEARCH
+function Search(search)
+{
+    $.ajax(
+        {
+            type: 'POST',
+            url: 'shop_pages.php',
+            success: TypeSuccess,
+            error: Error,
+            data: "search="+search,
+            dataType: 'html'
+        }
+    );
 }

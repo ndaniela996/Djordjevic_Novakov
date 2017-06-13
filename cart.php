@@ -20,11 +20,11 @@
         }
     }
 
-    if(isset($_POST['add_id']))
+    if(isset($_POST['add_id']) && isset($_POST['num']))
     {
         $id=$_POST['add_id'];
         $user=$_SESSION['id_user'];
-        $num=1;
+        $num=$_POST['num'];
         $price='';
 
         $sql="SELECT price_sell FROM article WHERE id_article='$id'";

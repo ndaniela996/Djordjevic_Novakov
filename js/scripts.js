@@ -164,6 +164,17 @@ $(document).ready(function()
         var id=this.value;
         getCart(id);
     });
+
+    //FOR SEARCH
+    $('#search').submit(function(e)
+    {
+        e.preventDefault();
+        var search=$('#search_text').val().trim();
+        if(search!='')
+        {
+            window.location.replace('shop.php?search='+search);
+        }
+    });
 });
 
 // FOR LOGIN

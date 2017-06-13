@@ -102,9 +102,9 @@
                         }
                     ?>
                 </ul>
-                <form class="navbar-form navbar-right md">
+                <form class="navbar-form navbar-right md" id="search">
                     <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Search">
+                        <input id="search_text" type="text" class="form-control" placeholder="Search">
 
                         <div class="input-group-btn">
                             <button class="btn btn-default" type="submit">
@@ -191,9 +191,6 @@
         <div class="col-md-3">
             <button class="btn btn-primary" value="account" style="width: 100%;">
                 <span class="glyphicon glyphicon-piggy-bank"></span> Account
-            </button>
-            <button class="btn btn-primary" value="orders" style="width: 100%">
-                <span class="glyphicon glyphicon-shopping-cart"></span> Orders
             </button>
             <button class="btn btn-primary" value="settings" style="width: 100%;">
                 <span class="glyphicon glyphicon-cog"></span> Profile Settings
