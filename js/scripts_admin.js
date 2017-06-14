@@ -42,13 +42,11 @@ $(document).ready(function()
     $('.nd_result').on('click','.nd_deliver',function()
     {
         $('#confirm_delivery').modal('show');
-
+        order_id=this.value;
     });
 
     $('#nd_confirm_deliver').click(function()
     {
-        var order_id=$('.nd_deliver').val();
-
         $.ajax(
             {
                 type: 'POST',
@@ -60,6 +58,12 @@ $(document).ready(function()
             }
         );
         $('#nd_confirm_deliver').hide();
+    });
+
+    $('#nd_close_deliver').click(function()
+    {
+        $('#nd_delivery_text').html("Do you really want to mark this order as delivered and charge the appropriate account?");
+        $('#nd_confirm_deliver').show();
     });
 });
 

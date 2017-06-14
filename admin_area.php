@@ -116,6 +116,7 @@
     </nav>
 </div>
 
+<!-- PAGE -->
 <div class="container">
     <div class="row">
         <div class="col-md-2 nd_menu">
@@ -154,6 +155,7 @@
     </div>
 </div>
 
+<!-- CONFIRM DELIVERY -->
 <div id="confirm_delivery" class="modal fade" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -165,7 +167,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" id="nd_confirm_deliver">CONFIRM</button>
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-default" id="nd_close_deliver" data-dismiss="modal">Close</button>
             </div>
         </div>
     </div>

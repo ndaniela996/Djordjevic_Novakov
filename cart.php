@@ -34,8 +34,15 @@
         {
             while($r=mysqli_fetch_array($result))
             {
-                $price=$r['price_sell'];
-                $price=$price*$num;
+                if(!is_nan($num))
+                {
+                    $price=$r['price_sell'];
+                    $price=$price*$num;
+                }
+                else
+                {
+                    echo "Error!";
+                }
             }
         }
 
@@ -57,7 +64,8 @@
 
     if(!isset($_POST['add_id']))
     {
-        $sql="SELECT o.id_orders,a.name_article,o.number_ordered,o.price FROM orders o JOIN article a ON a.id_article=o.id_article WHERE delivered='0' ORDER BY o.time DESC";
+        $user=$_SESSION['id_user'];
+        $sql="SELECT o.id_orders,a.name_article,o.number_ordered,o.price FROM orders o JOIN article a ON a.id_article=o.id_article WHERE delivered='0' AND id_user='$user' ORDER BY o.time DESC";
         $result=mysqli_query($connection,$sql);
 
         if(mysqli_num_rows($result)>0)
