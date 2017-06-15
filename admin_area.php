@@ -24,6 +24,7 @@
             crossorigin="anonymous"></script>
     <script src="js/scripts.js"></script>
     <script src="js/scripts_admin.js"></script>
+    <script src="js/scripts_profile.js"></script>
 </head>
 <body class="nd_admin">
 
@@ -125,10 +126,7 @@
                 <button class="btn btn-danger" id="comments">View Comments</button>
             </div>
             <div>
-                <button class="btn btn-danger" id="articles">Manage Article</button>
-            </div>
-            <div>
-                <button class="btn btn-danger" id="admins">Add Admin</button>
+                <button class="btn btn-danger" id="money">Financial Management</button>
             </div>
         </div>
         <div class="col-md-1"></div>
@@ -168,6 +166,23 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" id="nd_confirm_deliver">CONFIRM</button>
                 <button type="button" class="btn btn-default" id="nd_close_deliver" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ERROR -->
+<div id="error" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title">ERROR!</div>
+            </div>
+            <div class="modal-body">
+                <span id="error_text" class="help-block"></span>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
             </div>
         </div>
     </div>

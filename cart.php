@@ -27,6 +27,12 @@
         $num=$_POST['num'];
         $price='';
 
+        if(is_nan($num))
+        {
+            echo "Error!";
+            die();
+        }
+
         $sql="SELECT price_sell FROM article WHERE id_article='$id'";
         $result=mysqli_query($connection,$sql);
 
@@ -34,15 +40,8 @@
         {
             while($r=mysqli_fetch_array($result))
             {
-                if(!is_nan($num))
-                {
-                    $price=$r['price_sell'];
-                    $price=$price*$num;
-                }
-                else
-                {
-                    echo "Error!";
-                }
+                $price=$r['price_sell'];
+                $price=$price*$num;
             }
         }
 

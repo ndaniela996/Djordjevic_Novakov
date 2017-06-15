@@ -103,11 +103,40 @@
                     }
                 }
                 break;
-            case 'articles':
-                $display.="add articles";
-                break;
-            case 'admins':
-                $display.="admins";
+            case 'money':
+                $sql="SELECT id_user,username,credit FROM users";
+                $result=mysqli_query($connection,$sql);
+
+                if(mysqli_num_rows($result)>0)
+                {
+                    $display.="<div class='row'>
+    <label for='user'>User:</label>
+    <select class='form-control' id='user'>
+    <option id='default'>- Choose user -</option>";
+
+                    while($r=mysqli_fetch_array($result))
+                    {
+                        $credit=$r['credit']/100;
+                        $display.="<option id='".$r['id_user']."'>".$r['username']."</option>";
+                    }
+
+                    $display.="</select>
+    <hr>
+    <label for='add_money'>Add:</label>
+    <input class='form-control' type='number' id='add_money' placeholder='RSD'>
+    <button id='add_money_submit' style='width: 100%' class='btn btn-danger'>ADD</button>
+    <hr>
+    <label for='remove_money'>Remove:</label>
+    <input class='form-control' type='number' id='remove_money' placeholder='RSD'>
+    <button id='remove_money_submit' style='width: 100%' class='btn btn-danger'>REMOVE</button>
+    <hr>
+</div>";
+                }
+                else
+                {
+                    $display.="Error!";
+                }
+
                 break;
             default:
                 $display.="Error!";

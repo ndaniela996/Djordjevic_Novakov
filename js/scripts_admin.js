@@ -5,8 +5,7 @@ $(document).ready(function()
     {
         $('#orders').addClass('active');
         $('#comments').removeClass('active');
-        $('#articles').removeClass('active');
-        $('#admins').removeClass('active');
+        $('#money').removeClass('active');
         page='orders';
         ChangePage(page);
     });
@@ -14,27 +13,16 @@ $(document).ready(function()
     {
         $('#comments').addClass('active');
         $('#orders').removeClass('active');
-        $('#articles').removeClass('active');
-        $('#admins').removeClass('active');
+        $('#money').removeClass('active');
         page='comments';
         ChangePage(page);
     });
-    $('#articles').click(function()
+    $('#money').click(function()
     {
-        $('#articles').addClass('active');
+        $('#money').addClass('active');
         $('#comments').removeClass('active');
         $('#orders').removeClass('active');
-        $('#admins').removeClass('active');
-        page='articles';
-        ChangePage(page);
-    });
-    $('#admins').click(function()
-    {
-        $('#admins').addClass('active');
-        $('#comments').removeClass('active');
-        $('#articles').removeClass('active');
-        $('#orders').removeClass('active');
-        page='admins';
+        page='money';
         ChangePage(page);
     });
 
@@ -64,6 +52,8 @@ $(document).ready(function()
     {
         $('#nd_delivery_text').html("Do you really want to mark this order as delivered and charge the appropriate account?");
         $('#nd_confirm_deliver').show();
+        page='orders';
+        ChangePage(page);
     });
 });
 

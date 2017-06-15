@@ -25,7 +25,6 @@
             integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
             crossorigin="anonymous"></script>
     <script src="js/scripts.js"></script>
-    <script src="js/scripts_profile.js"></script>
 </head>
 <body>
 
@@ -249,22 +248,6 @@
                 </div>
             </div>
             <hr>
-            <div class='row' style='text-align: center'>
-                <div class='col-md-6'>
-                    <p>Add money to your account:</p>
-                    <input type='number' id='add_money' placeholder='1000'> RSD
-                    <br><br>
-                    <button style='width: 50%' class='btn btn-primary' id='add_money_submit'><h4>ADD</h4></button>
-                    <hr>
-                </div>
-                <div class='col-md-6'>
-                    <p>Remove money from your account:</p>
-                    <input type='number' id='remove_money' placeholder='1000'> RSD
-                    <br><br>
-                    <button style='width: 50%' class='btn btn-primary' id='remove_money_submit'><h4>REMOVE</h4></button>
-                    <hr>
-                </div>
-            </div>
         </div>
     </div>
 </div>

@@ -1,22 +1,23 @@
 $(document).ready(function()
 {
-
     //ACCOUNT MANAGEMENT
-    $('#profile_area').on('click','#add_money_submit',function()
+    $('.nd_result').on('click','#add_money_submit',function()
     {
+        var user=$('#user').val().trim();
         var add=$('#add_money').val().trim();
-        if(add!='')
+        if(add!='' && user!='- Choose user -')
         {
-            AddToAccount(add);
+            AddToAccount(user,add);
         }
     });
 
-    $('#profile_area').on('click','#remove_money_submit',function()
+    $('.nd_result').on('click','#remove_money_submit',function()
     {
+        var user=$('#user').val().trim();
         var remove=$('#remove_money').val().trim();
-        if(remove!='')
+        if(remove!='' && user!='- Choose user -')
         {
-            RemoveFromAccount(remove);
+            RemoveFromAccount(user,remove);
         }
     });
 });
@@ -29,7 +30,7 @@ function Error(xhr,status,error)
 }
 
 //ADD
-function AddToAccount(add)
+function AddToAccount(user,add)
 {
     $.ajax(
         {
@@ -37,14 +38,14 @@ function AddToAccount(add)
             url: 'profile_pages.php',
             success: AddRemoveSuccess,
             error: Error,
-            data: "add="+add,
+            data: "user="+user+"&add="+add,
             dataType: 'html'
         }
     );
 }
 
 //REMOVE
-function RemoveFromAccount(remove)
+function RemoveFromAccount(user,remove)
 {
     $.ajax(
         {
@@ -52,7 +53,7 @@ function RemoveFromAccount(remove)
             url: 'profile_pages.php',
             success: AddRemoveSuccess,
             error: Error,
-            data: "remove="+remove,
+            data: "user="+user+"&remove="+remove,
             dataType: 'html'
         }
     );
@@ -63,7 +64,10 @@ function AddRemoveSuccess(data,status,xhr)
 {
     if(data=='')
     {
-        window.location.reload();
+        alert('Success!');
+        $('#user').val('- Choose user -');
+        $('#add_money').val('');
+        $('#remove_money').val('');
     }
     else
     {
