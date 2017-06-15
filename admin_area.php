@@ -143,8 +143,7 @@
                     <ul>
                         <li>view all undelivered orders</li>
                         <li>view the newest comments from across the whole site</li>
-                        <li>add or remove articles</li>
-                        <li>add (but not remove) new admins</li>
+                        <li>add or remove credits from users</li>
                     </ul>
                     <p><strong><em>We hope you have a good day!</em></strong></p>
                 </div>
